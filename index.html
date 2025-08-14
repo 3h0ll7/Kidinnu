@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Kidinnu</title>
+  
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kidinnu - دليل أدوات الذكاء الاصطناعي</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0a0a0a;
+            --card-bg: #1a1a1a;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --accent-purple: #8b5cf6;
+            --accent-blue: #3b82f6;
+            --accent-gradient: linear-gradient(135deg, #8b5cf6, #3b82f6);
+            --border-color: #2a2a2a;
+            --hover-glow: rgba(139, 92, 246, 0.15);
+            --header-bg: rgba(26, 26, 26, 0.8);
+        }
+        
+        /* Light mode variables */
+        .light-mode {
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-primary: #212529;
+            --text-secondary: #6c757d;
+            --border-color: #e9ecef;
+            --hover-glow: rgba(139, 92, 246, 0.1);
+            --header-bg: rgba(255, 255, 255, 0.8);
+        }
+        
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        /* Animated background */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at 20% 50%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 20%, rgba(139, 92, 246, 0.05) 0%, transparent 50%);
+            animation: bgPulse 20s ease-in-out infinite;
+            transition: opacity 0.3s ease;
+        }
+        
+        .light-mode .animated-bg {
+            opacity: 0.3;
+        }
+        
+        @keyframes bgPulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+        
+        /* Floating particles */
+        .particle {
+            position: fixed;
+            pointer-events: none;
+            opacity: 0.5;
+            animation: float 20s infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-20px) translateX(10px); }
+            50% { transform: translateY(10px) translateX(-10px); }
+            75% { transform: translateY(-10px) translateX(5px); }
+        }
+        
+        /* Glass morphism effect */
+        .glass {
+            background: var(--header-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: background-color 0.3s ease;
+        }
+        
+        /* Enhanced card styles */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--accent-gradient);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-purple);
+            box-shadow: 0 10px 40px rgba(139, 92, 246, 0.2);
+        }
+        
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        /* Button styles */
+        .btn-primary {
+            background: var(--accent-gradient);
+            color: white;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: left 0.3s ease;
+        }
+        
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(139, 92, 246, 0.4);
+        }
+        
+        /* Filter button styles */
+        .filter-btn {
+            background: rgba(42, 42, 42, 0.8);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .light-mode .filter-btn {
+            background: rgba(233, 236, 239, 0.8);
+        }
+        
+        .filter-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: var(--accent-gradient);
+            transform: translate(-50%, -50%);
+            transition: width 0.3s ease, height 0.3s ease;
+        }
+        
+        .filter-btn:hover {
+            color: white;
+            border-color: var(--accent-purple);
+        }
+        
+        .filter-btn.active {
+            background: var(--accent-gradient);
+            color: white;
+            border-color: transparent;
+        }
+        
+        /* Search input styles */
+        .search-input {
+            background: rgba(42, 42, 42, 0.8);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+        
+        .light-mode .search-input {
+            background: rgba(233, 236, 239, 0.8);
+        }
+        
+        .search-input:focus {
+            border-color: var(--accent-purple);
+            box-shadow: 0 0 0 3px var(--hover-glow);
+        }
+        
+        /* Tag styles */
+        .tag {
+            background: rgba(42, 42, 42, 0.8);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+        
+        .light-mode .tag {
+            background: rgba(233, 236, 239, 0.8);
+        }
+        
+        .tag:hover {
+            background: rgba(139, 92, 246, 0.2);
+            border-color: var(--accent-purple);
+            color: var(--accent-purple);
+        }
+        
+        /* Logo animation */
+        .logo-container {
+            animation: logoFloat 3s ease-in-out infinite;
+        }
+        
+        @keyframes logoFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        
+        /* Fade in animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.6s ease forwards;
+        }
+        
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Stagger animation for cards */
+        .card {
+            animation: fadeIn 0.6s ease forwards;
+            opacity: 0;
+        }
+        
+        /* Loading skeleton */
+        .skeleton {
+            background: linear-gradient(90deg, rgba(42, 42, 42, 0.8) 25%, rgba(52, 52, 52, 0.8) 50%, rgba(42, 42, 42, 0.8) 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+        
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--bg-color);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent-purple);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-blue);
+        }
+        
+        /* Theme toggle button - smaller size */
+        .theme-toggle {
+            position: relative;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff9d00, #ff6200);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 8px rgba(255, 157, 0, 0.3);
+        }
+        
+        .theme-toggle:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(255, 157, 0, 0.4);
+        }
+        
+        .theme-toggle svg {
+            width: 18px;
+            height: 18px;
+            fill: white;
+            transition: all 0.3s ease;
+        }
+        
+        .theme-toggle .sun-icon {
+            position: absolute;
+            opacity: 0;
+            transform: scale(0.5) rotate(90deg);
+        }
+        
+        .theme-toggle .moon-icon {
+            position: absolute;
+            opacity: 1;
+            transform: scale(1) rotate(0);
+        }
+        
+        .light-mode .theme-toggle .sun-icon {
+            opacity: 1;
+            transform: scale(1) rotate(0);
+        }
+        
+        .light-mode .theme-toggle .moon-icon {
+            opacity: 0;
+            transform: scale(0.5) rotate(-90deg);
+        }
+        
+        /* Light mode specific styles */
+        .light-mode .card {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .light-mode .card:hover {
+            box-shadow: 0 10px 25px rgba(139, 92, 246, 0.15);
+        }
+        
+        .light-mode footer {
+            color: #6c757d;
+            border-top: 1px solid #e9ecef;
+        }
+        
+        /* Social link styles */
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 24px;
+            border-radius: 50px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .social-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .social-link:hover::before {
+            left: 100%;
+        }
+        
+        .social-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+        
+        .social-link svg {
+            width: 20px;
+            height: 20px;
+            margin-left: 8px;
+        }
+        
+        .light-mode .social-link {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <!-- Animated background -->
+    <div class="animated-bg"></div>
+    
+    <!-- Floating particles -->
+    <div class="particle" style="top: 10%; left: 10%; width: 4px; height: 4px; background: var(--accent-purple); border-radius: 50%; animation-delay: 0s;"></div>
+    <div class="particle" style="top: 20%; left: 80%; width: 3px; height: 3px; background: var(--accent-blue); border-radius: 50%; animation-delay: 2s;"></div>
+    <div class="particle" style="top: 60%; left: 30%; width: 5px; height: 5px; background: var(--accent-purple); border-radius: 50%; animation-delay: 4s;"></div>
+    <div class="particle" style="top: 80%; left: 70%; width: 2px; height: 2px; background: var(--accent-blue); border-radius: 50%; animation-delay: 6s;"></div>
+    <div class="particle" style="top: 40%; left: 90%; width: 3px; height: 3px; background: var(--accent-purple); border-radius: 50%; animation-delay: 8s;"></div>
+    
+    <div class="content-wrapper">
+        <!-- Header -->
+        <header class="glass sticky top-0 z-50 border-b border-gray-800">
+            <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+                <a href="#" class="flex items-center space-x-3 space-x-reverse logo-container">
+                    <svg class="h-9 w-9" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#8b5cf6;" />
+                                <stop offset="100%" style="stop-color:#3b82f6;" />
+                            </linearGradient>
+                            <filter id="glow">
+                                <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                                <feMerge>
+                                    <feMergeNode in="coloredBlur"/>
+                                    <feMergeNode in="SourceGraphic"/>
+                                </feMerge>
+                            </filter>
+                        </defs>
+                        <path fill="url(#logoGradient)" filter="url(#glow)" d="M50,5 C74.85,5 95,25.15 95,50 C95,74.85 74.85,95 50,95 C35.93,95 23.67,88.49 16.14,78.21 L35.62,68.04 C38.5,72.43 43.83,75.31 50,75.31 C63.98,75.31 75.31,63.98 75.31,50 C75.31,36.02 63.98,24.69 50,24.69 C43.83,24.69 38.5,27.57 35.62,31.96 L16.14,21.79 C23.67,11.51 35.93,5 50,5 Z M18,50 C18,37.85 28.07,27.6 40,27.6 L40,72.4 C28.07,72.4 18,62.15 18,50 Z"/>
+                    </svg>
+                    <span class="text-3xl font-extrabold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">Kidinnu</span>
+                </a>
+                
+                <!-- Theme toggle button -->
+                <div class="theme-toggle" id="theme-toggle">
+                    <svg class="moon-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
+                    </svg>
+                    <svg class="sun-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.591a.75.75 0 101.06 1.06l1.591-1.591zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.591-1.591a.75.75 0 10-1.06 1.06l1.591 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.591a.75.75 0 001.06 1.06l1.591-1.591zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.591-1.591a.75.75 0 00-1.06 1.06l1.591 1.591z" />
+                    </svg>
+                </div>
+            </nav>
+        </header>
+        
+        <!-- Hero Section -->
+        <main class="container mx-auto px-6 py-12 md:py-16 text-center">
+            <h1 class="text-4xl md:text-5xl font-extrabold leading-tight fade-in">
+                <span class="bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
+                    المنصة الرائدة في تجميع وتصنيف
+                </span>
+                <br>
+                <span class="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                    أدوات الذكاء الاصطناعي
+                </span>
+            </h1>
+            <p class="mt-4 text-lg md:text-xl text-text-secondary max-w-3xl mx-auto fade-in" style="animation-delay: 0.2s;">
+                دليلك الشامل لأكثر من 200 أداة مصنفة بعناية، لتعزيز إنتاجيتك وإطلاق العنان لإبداعك.
+            </p>
+            <p class="mt-4 text-md text-gray-500 fade-in" style="animation-delay: 0.4s;">by 𝓗𝓪𝓼𝓼𝓪𝓷 𝓼𝓪𝓵𝓶𝓪𝓷</p>
+        </main>
+        
+        <!-- Search and Filter Section -->
+        <section id="search-filter" class="container mx-auto px-6 mb-12 fade-in" style="animation-delay: 0.6s;">
+            <div class="relative mb-6">
+                <input id="search-input" type="text" placeholder="ابحث عن الأدوات..." class="search-input w-full p-4 pr-12 text-lg rounded-full focus:outline-none">
+                <svg class="absolute left-5 top-1/2 -translate-y-1/2 h-6 w-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+            </div>
+            <div id="filter-container" class="flex flex-wrap justify-center gap-2">
+                <!-- Filter buttons will be injected here -->
+            </div>
+            <div id="category-intro" class="mt-6 text-center text-text-secondary max-w-2xl mx-auto transition-opacity duration-500">
+                <!-- Category introduction text will be injected here -->
+            </div>
+        </section>
+        
+        <!-- Tools Grid -->
+        <section id="tools" class="container mx-auto px-6 pb-20">
+            <div id="tools-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                <!-- Tool cards will be injected here -->
+            </div>
+        </section>
+        
+        <!-- Footer -->
+        <footer class="py-8 text-center border-t border-gray-800">
+            <div class="mb-4">
+                <p class="text-gray-400 mb-3">للتواصل:</p>
+                <a href="https://linktr.ee/3h0ll" target="_blank" rel="noopener noreferrer" class="social-link">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
+                    </svg>
+                    حساباتي على مواقع التواصل الاجتماعي
+                </a>
+            </div>
+            <p class="text-gray-500">&copy; 2024 Kidinnu. جميع الحقوق محفوظة.</p>
+        </footer>
+    </div>
+    
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('theme-toggle');
+        const body = document.body;
+        
+        // Check for saved theme preference or default to dark mode
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+        if (currentTheme === 'light') {
+            body.classList.add('light-mode');
+        }
+        
+        themeToggle.addEventListener('click', function() {
+            body.classList.toggle('light-mode');
+            
+            // Save theme preference
+            if (body.classList.contains('light-mode')) {
+                localStorage.setItem('theme', 'light');
+            } else {
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+        
+        const categoryIntros = {
+            "للمسوقين": "يقدم الذكاء الاصطناعي للمسوقين القدرة على تحليل كميات هائلة من البيانات، وتخصيص الحملات التسويقية، وأتمتة المهام المتكررة، مما يؤدي إلى استهداف أكثر فعالية وزيادة عائد الاستثمار.",
+            "للمصممين": "أدوات الذكاء الاصطناعي تساعد المصممين على تسريع عمليات التصميم، وتوليد أفكار إبداعية جديدة، وأتمتة المهام الروتينية مثل إزالة الخلفيات أو تحسين جودة الصور.",
+            "للمبرمجين": "يُمكن للذكاء الاصطناعي مساعدة المبرمجين في كتابة الأكواد بشكل أسرع، واكتشاف الأخطاء وإصلاحها، وتقديم اقتراحات لتحسين جودة الكود وأمانه.",
+            "لأخصائيي الأمن السيبراني": "تساعد أدوات الذكاء الاصطناعي في تحليل التهديدات الأمنية بشكل أسرع وأكثر دقة، وأتمتة الاستجابة للحوادث، والتنبؤ بالهجمات المحتملة قبل وقوعها.",
+            "للمعلمين": "يمكن للمعلمين استخدام الذكاء الاصطناعي لتخصيص تجارب التعلم للطلاب، وإنشاء خطط الدروس والتقييمات، وأتمتة المهام الإدارية لتوفير المزيد من الوقت للتدريس.",
+            "للباحثين": "يعزز الذكاء الاصطناعي قدرة الباحثين على تحليل البيانات الضخمة، ومراجعة الأدبيات العلمية بكفاءة، واكتشاف الأنماط والصلات التي قد يصعب رؤيتها.",
+            "للأطباء": "يساهم الذكاء الاصطناعي في تحسين دقة التشخيص، وتخصيص خطط العلاج، وتحليل الصور الطبية، وأتمتة المهام الإدارية لتمكين الأطباء من التركيز على رعاية المرضى.",
+            "للمحامين": "تساعد أدوات الذكاء الاصطناعي المحامين في تسريع عملية البحث القانوني، ومراجعة العقود، وتحليل كميات هائلة من المستندات، والتنبؤ بنتائج القضايا.",
+            "للمهندسين المعماريين": "يستخدم المهندسون المعماريون الذكاء الاصطناعي في التصميم التوليدي، وتحسين استدامة المباني، وأتمتة إنشاء الرسومات، ومحاكاة أداء المباني في مراحل مبكرة.",
+            "لمديري المشاريع": "يعمل الذكاء الاصطناعي على أتمتة جدولة المهام، وتخصيص الموارد، والتنبؤ بالمخاطر، وتحسين التواصل بين أعضاء الفريق، مما يضمن سير المشاريع بسلاسة وكفاءة.",
+            "لأخصائيي الموارد البشرية": "يُستخدم الذكاء الاصطناعي في فحص السير الذاتية، وتحليل مشاعر الموظفين، وتخصيص برامج التدريب، وأتمتة الرد على استفسارات الموظفين الشائعة، مما يحسن من كفاءة عمليات الموارد البشرية.",
+            "للمحاسبين": "يمكن للمحاسبين الاستفادة من الذكاء الاصطناعي في أتمتة إدخال البيانات، وتصنيف المعاملات، واكتشاف الاحتيال، وإعداد التقارير المالية، وتحليل البيانات للتنبؤ بالاتجاهات المالية.",
+            "للتمريض": "يساعد الذكاء الاصطناعي الممرضين في مراقبة حالة المرضى، وتحديد العلامات الحيوية غير الطبيعية، وتخصيص خطط الرعاية، وأتمتة التوثيق الطبي لتحسين جودة الرعاية.",
+            "للمختبرات الطبية": "يستخدم الذكاء الاصطناعي في تحليل نتائج الفحوصات المخبرية بدقة عالية، وتحديد الأنماط غير الطبيعية، وتسريع عملية التشخيص، وتقليل الأخطاء البشرية.",
+            "للصيادلة": "يُساعد الذكاء الاصطناعي الصيادلة في مراجعة الوصفات الطبية، وتحديد التفاعلات الدوائية المحتملة، وتحسين إدارة المخزون، وتقديم استشارات دوائية دقيقة.",
+            "لأطباء الأسنان": "يستخدم أطباء الأسنان الذكاء الاصطناعي في تحليل صور الأشعة، وتخطيط العلاجات، وتصميم أجهزة تقويم الأسنان، وتحسين دقة التشخيص والعلاج.",
+            "للمصورين": "يستخدم المصورون الذكاء الاصطناعي في تحسين جودة الصور، وإزالة العيوب، وتوليد تأثيرات بصرية مبتكرة، وأتمتة مهام التحرير لتوفير الوقت والجهد.",
+            // الفئات الجديدة
+            "للمستثمرين والمحللين الماليين": "تستخدم أدوات الذكاء الاصطناعي لتحليل الأسواق المالية، والتنبؤ بالاتجاهات، وتحديد الفرص الاستثمارية، وإدارة المحافظ الاستثمارية بشكل آلي، مما يزيد من دقة القرارات المالية.",
+            "للمترجمين ولغويين": "تُحسّن أدوات الذكاء الاصطناعي جودة الترجمة عبر فهم السياق واللهجات، وتقدم اقتراحات للتحرير اللغوي، وتساعد في تعلم اللغات الجديدة بطرق مبتكرة.",
+            "للموسيقيين والملحنين": "تساعد أدوات الذكاء الاصطناعي الموسيقيين في تأليف الموسيقى الأصلية، وفصل الآلات الموسيقية، وإتقان الصوت، وتحليل الأغاني، مما يفتح آفاقًا جديدة للإبداع الموسيقي.",
+            "للصحفيين والكتاب": "تُساعد أدوات الذكاء الاصطناعي الصحفيين والكتاب في تحسين جودة الكتابة، والتحقق من الحقائق، وتوليد الأفكار، وتلخيص المستندات الطويلة، وتحسين أسلوب الكتابة.",
+            "للعاملين في مجال التجارة الإلكترونية": "تُستخدم أدوات الذكاء الاصطناعي في تحسين تجربة التسوق، وتخصيص التوصيات، وتحسين الصور المنتجات، والتنبؤ باتجاهات السوق، وأتمتة خدمة العملاء.",
+            "للمزارعين والعاملين في القطاع الزراعي": "تساعد أدوات الذكاء الاصطناعي المزارعين في تحليل التربة، ورصد صحة المحاصيل، والتنبؤ بالأمراض، وتحسين استخدام المياه والأسمدة، وزيادة الإنتاجية.",
+            "للمعلمين اللغويين ومدرسي اللغات": "تُستخدم أدوات الذكاء الاصطناعي في تعليم اللغات بطريقة مخصصة لكل متعلم، وتقييم النطق، وتوفير تمارين تفاعلية، وتتبع تقدم الطلاب.",
+            "للمسافرين ووكالات السفر": "تساعد أدوات الذكاء الاصطناعي المسافرين في العثور على أفضل الصفقات، والتخطيط لرحلات مخصصة، والتنبؤ بأفضل وقت للحجز، وتقديم توصيات شخصية للوجهات.",
+            "للمصممين الداخليين ومهندسي الديكور": "تُستخدم أدوات الذكاء الاصطناعي لإنشاء تصاميم داخلية ثلاثية الأبعاد، وتصور المساحات، واختيار الأثاث والألوان المناسبة، وتقديم توصيات للديكور.",
+            "لعلماء البيئة والمتخصصين في الاستدامة": "تستخدم أدوات الذكاء الاصطناعي في مراقبة البيئة، والتنبؤ بالتغيرات المناخية، وإدارة الموارد الطبيعية، وتحليل البيانات البيئية المعقدة."
+        };
+        
+        const aiToolsData = [
+            // الفئات الأصلية
+            { name: "Jasper", url: "https://www.jasper.ai/", logo: "https://logo.clearbit.com/jasper.ai", description: "لكتابة محتوى إعلاني وتسويقي إبداعي وجذاب.", category: "للمسوقين", pricing: "مدفوع", arabic_support: "نعم" },
+            { name: "HubSpot AI", url: "https://www.hubspot.com/artificial-intelligence", logo: "https://logo.clearbit.com/hubspot.com", description: "لتحسين إدارة علاقات العملاء وأتمتة التسويق.", category: "للمسوقين", pricing: "مدفوع", arabic_support: "جزئي" },
+            { name: "Google Analytics 4", url: "https://analytics.google.com/", logo: "https://logo.clearbit.com/google.com", description: "لتحليل سلوك العملاء بذكاء وتقديم رؤى دقيقة.", category: "للمسوقين", pricing: "مجاني/مدفوع", arabic_support: "نعم" },
+            { name: "AdCreative.ai", url: "https://www.adcreative.ai/", logo: "https://logo.clearbit.com/adcreative.ai", description: "لإنشاء تصميمات إعلانية متنوعة بشكل آلي.", category: "للمسوقين", pricing: "مدفوع", arabic_support: "نعم" },
+            { name: "Synthesia", url: "https://www.synthesia.io/", logo: "https://logo.clearbit.com/synthesia.io", description: "لإنشاء مقاطع فيديو واقعية باستخدام شخصيات افتراضية.", category: "للمسوقين", pricing: "مدفوع", arabic_support: "نعم" },
+            { name: "Hootsuite Insights", url: "https://www.hootsuite.com/platform/insights", logo: "https://logo.clearbit.com/hootsuite.com", description: "لمراقبة وتحليل وسائل التواصل الاجتماعي.", category: "للمسوقين", pricing: "مدفوع", arabic_support: "نعم" },
+            { name: "Optimizely", url: "https://www.optimizely.com/", logo: "https://logo.clearbit.com/optimizely.com", description: "لتحسين تجربة المستخدم (UX) عبر اختبارات A/B.", category: "للمسوقين", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "Salesforce Einstein", url: "https://www.salesforce.com/products/einstein/overview/", logo: "https://logo.clearbit.com/salesforce.com", description: "لتقديم توصيات ذكية لتحسين استراتيجيات المبيعات.", category: "للمسوقين", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "Adobe Sensei", url: "https://www.adobe.com/sensei.html", logo: "https://logo.clearbit.com/adobe.com", description: "لتحسين الصور والفيديوهات وأتمتة المهام الإبداعية.", category: "للمسوقين", pricing: "مدفوع", arabic_support: "نعم" },
+            { name: "ChatGPT", url: "https://chat.openai.com/", logo: "https://logo.clearbit.com/openai.com", description: "للمساعدة في كتابة المحتوى، والرد على العملاء، ووضع خطط تسويقية.", category: "للمسوقين", pricing: "مجاني/مدفوع", arabic_support: "نعم" },
+            // للمصممين 🎨
+            { name: "Midjourney", url: "https://www.midjourney.com/", logo: "https://logo.clearbit.com/midjourney.com", description: "لتوليد صور فنية عالية الجودة بناءً على أوامر نصية.", category: "للمصممين", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "DALL-E 2", url: "https://openai.com/dall-e-2", logo: "https://logo.clearbit.com/openai.com", description: "لإنشاء صور ورسومات فريدة من خلال وصف نصي.", category: "للمصممين", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "Adobe Firefly", url: "https://www.adobe.com/sensei/generative-ai/firefly.html", logo: "https://logo.clearbit.com/adobe.com", description: "مساعد إبداعي متكامل مع تطبيقات Adobe لتوليد الصور والتأثيرات.", category: "للمصممين", pricing: "مدفوع", arabic_support: "نعم" },
+            { name: "Canva Magic Design", url: "https://www.canva.com/magic-design/", logo: "https://logo.clearbit.com/canva.com", description: "لإنشاء تصاميم مخصصة تلقائيًا بناءً على فكرة بسيطة.", category: "للمصممين", pricing: "مجاني/مدفوع", arabic_support: "نعم" },
+            { name: "Khroma", url: "https://www.khroma.co/", logo: "https://logo.clearbit.com/khroma.co", description: "لاكتشاف وتوليد لوحات ألوان لانهائية.", category: "للمصممين", pricing: "مجاني", arabic_support: "لا" },
+            { name: "Let's Enhance", url: "https://letsenhance.io/", logo: "https://logo.clearbit.com/letsenhance.io", description: "لتحسين جودة الصور وزيادة دقتها دون فقدان التفاصيل.", category: "للمصممين", pricing: "مجاني/مدفوع", arabic_support: "لا" },
+            { name: "Remove.bg", url: "https://www.remove.bg/", logo: "https://logo.clearbit.com/remove.bg", description: "لإزالة خلفيات الصور بنقرة واحدة.", category: "للمصممين", pricing: "مجاني/مدفوع", arabic_support: "نعم" },
+            { name: "Uizard", url: "https://uizard.io/", logo: "https://logo.clearbit.com/uizard.io", description: "لتحويل الرسومات اليدوية إلى نماذج أولية لواجهات المستخدم.", category: "للمصممين", pricing: "مجاني/مدفوع", arabic_support: "لا" },
+            { name: "Looka", url: "https://looka.com/", logo: "https://logo.clearbit.com/looka.com", description: "لتصميم شعارات احترافية باستخدام الذكاء الاصطناعي.", category: "للمصممين", pricing: "مدفوع", arabic_support: "نعم" },
+            { name: "Autodesk Forma", url: "https://www.autodesk.com/products/forma/overview", logo: "https://logo.clearbit.com/autodesk.com", description: "لمساعدة المصممين المعماريين على اتخاذ قرارات تصميم أفضل.", category: "للمصممين", pricing: "مدفوع", arabic_support: "لا" },
+            // للمبرمجين 💻
+            { name: "GitHub Copilot", url: "https://github.com/features/copilot", logo: "https://logo.clearbit.com/github.com", description: "مساعد برمجي يقترح أكوادًا كاملة ووظائف أثناء الكتابة.", category: "للمبرمجين", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "Tabnine", url: "https://www.tabnine.com/", logo: "https://logo.clearbit.com/tabnine.com", description: "أداة تكميل الكود التي تتعلم من أسلوبك لتقديم اقتراحات مخصصة.", category: "للمبرمجين", pricing: "مجاني/مدفوع", arabic_support: "لا" },
+            { name: "ChatGPT/GPT-4", url: "https://chat.openai.com/", logo: "https://logo.clearbit.com/openai.com", description: "للمساعدة في كتابة أجزاء من الكود، تصحيح الأخطاء، وشرح المفاهيم.", category: "للمبرمجين", pricing: "مجاني/مدفوع", arabic_support: "نعم" },
+            { name: "Replit Ghostwriter", url: "https://replit.com/ghostwriter", logo: "https://logo.clearbit.com/replit.com", description: "مساعد برمجي متكامل داخل بيئة التطوير Replit.", category: "للمبرمجين", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "Snyk", url: "https://snyk.io/", logo: "https://logo.clearbit.com/snyk.io", description: "لاكتشاف الثغرات الأمنية في الكود والمكتبات المفتوحة المصدر.", category: "للمبرمجين", pricing: "مجاني/مدفوع", arabic_support: "لا" },
+            { name: "DeepCode", url: "https://www.deepcode.ai/", logo: "https://logo.clearbit.com/snyk.io", description: "يقوم بمراجعة الكود ويقدم اقتراحات لتحسين الجودة والأداء.", category: "للمبرمجين", pricing: "مجاني", arabic_support: "لا" },
+            { name: "Amazon CodeWhisperer", url: "https://aws.amazon.com/codewhisperer/", logo: "https://logo.clearbit.com/amazon.com", description: "مساعد ترميز قائم على التعلم الآلي.", category: "للمبرمجين", pricing: "مجاني", arabic_support: "لا" },
+            { name: "Mintlify", url: "https://mintlify.com/", logo: "https://logo.clearbit.com/mintlify.com", description: "لإنشاء توثيق (Documentation) للكود بشكل آلي.", category: "للمبرمجين", pricing: "مجاني/مدفوع", arabic_support: "لا" },
+            { name: "BlackBox AI", url: "https://www.useblackbox.io/", logo: "https://logo.clearbit.com/useblackbox.io", description: "للعثور على مقتطفات الكود التي تحتاجها من أي سؤال تطرحه.", category: "للمبرمجين", pricing: "مجاني/مدفوع", arabic_support: "لا" },
+            { name: "CodeT5", url: "https://github.com/salesforce/CodeT5", logo: "https://logo.clearbit.com/github.com", description: "نموذج ذكاء اصطناعي مفتوح المصدر لفهم وتوليد الكود.", category: "للمبرمجين", pricing: "مجاني", arabic_support: "لا" },
+            // لأخصائيي الأمن السيبراني 🛡️
+            { name: "Darktrace", url: "https://darktrace.com/", logo: "https://logo.clearbit.com/darktrace.com", description: "يستخدم الذكاء الاصطناعي لاكتشاف التهديدات السيبرانية المتقدمة.", category: "لأخصائيي الأمن السيبراني", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "CrowdStrike Falcon", url: "https://www.crowdstrike.com/falcon-platform/", logo: "https://logo.clearbit.com/crowdstrike.com", description: "منصة لحماية النقاط النهائية تعتمد على الذكاء الاصطناعي لمنع الهجمات.", category: "لأخصائيي الأمن السيبراني", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "Vectra AI", url: "https://www.vectra.ai/", logo: "https://logo.clearbit.com/vectra.ai", description: "للكشف عن التهديدات والهجمات المخفية داخل الشبكة.", category: "لأخصائيي الأمن السيبراني", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "IBM QRadar Advisor", url: "https://www.ibm.com/qradar", logo: "https://logo.clearbit.com/ibm.com", description: "يستخدم الذكاء الاصطناعي للمساعدة في التحقيق في الحوادث الأمنية.", category: "لأخصائيي الأمن السيبراني", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "CylancePROTECT", url: "https://www.blackberry.com/us/en/products/endpoint-security/cylance-protect", logo: "https://logo.clearbit.com/blackberry.com", description: "يستخدم الذكاء الاصطناعي لمنع البرامج الضارة قبل أن يتم تنفيذها.", category: "لأخصائيي الأمن السيبراني", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "SentinelOne", url: "https://www.sentinelone.com/", logo: "https://logo.clearbit.com/sentinelone.com", description: "منصة مستقلة للكشف عن التهديدات والاستجابة لها عبر النقاط النهائية.", category: "لأخصائيي الأمن السيبراني", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "Tessian", url: "https://www.tessian.com/", logo: "https://logo.clearbit.com/tessian.com", description: "لحماية البريد الإلكتروني من هجمات التصيد الاحتيالي وتسرب البيانات.", category: "لأخصائيي الأمن السيبراني", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "Check Point Infinity AI", url: "https://www.checkpoint.com/ai-copilot/", logo: "https://logo.clearbit.com/checkpoint.com", description: "مساعد أمني لإدارة التهديدات والاستجابة لها بفعالية.", category: "لأخصائيي الأمن السيبراني", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "Fortinet FortiAI", url: "https://www.fortinet.com/products/fortiai", logo: "https://logo.clearbit.com/fortinet.com", description: "للكشف عن التهديدات المتقدمة وأتمتة الاستجابة.", category: "لأخصائيي الأمن السيبراني", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "Purple AI", url: "https://www.sentinelone.com/platform/purple-ai/", logo: "https://logo.clearbit.com/sentinelone.com", description: "أداة لتحليل الهجمات السيبرانية من خلال المحادثات النصية.", category: "لأخصائيي الأمن السيبراني", pricing: "مدفوع", arabic_support: "لا" },
+            // للمعلمين 👩‍🏫
+            { name: "Gradescope", url: "https://www.gradescope.com/", logo: "https://logo.clearbit.com/gradescope.com", description: "لتقييم وتصحيح الواجبات والامتحانات بشكل سريع.", category: "للمعلمين", pricing: "مدفوع", arabic_support: "جزئي" },
+            { name: "MagicSchool AI", url: "https://www.magicschool.ai/", logo: "https://logo.clearbit.com/magicschool.ai", description: "منصة شاملة تساعد المعلمين في التخطيط والتقييم والتواصل.", category: "للمعلمين", pricing: "مجاني/مدفوع", arabic_support: "نعم" },
+            { name: "Curipod", url: "https://curipod.com/", logo: "https://logo.clearbit.com/curipod.com", description: "لإنشاء دروس تفاعلية وجذابة للطلاب.", category: "للمعلمين", pricing: "مجاني/مدفوع", arabic_support: "نعم" },
+            { name: "Canva for Education", url: "https://www.canva.com/education/", logo: "https://logo.clearbit.com/canva.com", description: "لإنشاء مواد تعليمية بصرية بسهولة.", category: "للمعلمين", pricing: "مجاني", arabic_support: "نعم" },
+            { name: "Twee", url: "https://www.twee.com/", logo: "https://logo.clearbit.com/twee.com", description: "للمساعدة في إنشاء أسئلة وأنشطة لمعلمي اللغة.", category: "للمعلمين", pricing: "مجاني/مدفوع", arabic_support: "لا" },
+            { name: "Gemini", url: "https://gemini.google.com/", logo: "https://logo.clearbit.com/google.com", description: "لإنشاء خطط دروس، وأمثلة، وشرح مبسط للمفاهيم المعقدة.", category: "للمعلمين", pricing: "مجاني", arabic_support: "نعم" },
+            { name: "Socrative", url: "https://www.socrative.com/", logo: "https://logo.clearbit.com/socrative.com", description: "لإنشاء اختبارات قصيرة وأنشطة تفاعلية داخل الفصل.", category: "للمعلمين", pricing: "مجاني/مدفوع", arabic_support: "نعم" },
+            { name: "Fetchy", url: "https://www.fetchy.com/", logo: "https://logo.clearbit.com/fetchy.com", description: "متخصص في إنشاء مواد تعليمية مصممة خصيصًا لتلبية متطلبات المعلمين.", category: "للمعلمين", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "Quizlet Q-Chat", url: "https://quizlet.com/q-chat", logo: "https://logo.clearbit.com/quizlet.com", description: "مدرس افتراضي يعمل بالذكاء الاصطناعي لتقديم تجارب دراسية تفاعلية.", category: "للمعلمين", pricing: "مدفوع", arabic_support: "نعم" },
+            { name: "Formative", url: "https://www.formative.com/", logo: "https://logo.clearbit.com/formative.com", description: "لإنشاء تقييمات تفاعلية وتقديم ملاحظات فورية للطلاب.", category: "للمعلمين", pricing: "مجاني/مدفوع", arabic_support: "نعم" },
+            // للباحثين 🔬
+            { name: "Elicit", url: "https://elicit.com/", logo: "https://logo.clearbit.com/elicit.com", description: "مساعد بحثي لأتمتة مراجعة الأدبيات وتلخيص الأوراق البحثية.", category: "للباحثين", pricing: "مجاني/مدفوع", arabic_support: "لا" },
+            { name: "Semantic Scholar", url: "https://www.semanticscholar.org/", logo: "https://logo.clearbit.com/semanticscholar.org", description: "محرك بحث أكاديمي يستخدم الذكاء الاصطناعي للعثور على الأبحاث.", category: "للباحثين", pricing: "مجاني", arabic_support: "لا" },
+            { name: "Connected Papers", url: "https://www.connectedpapers.com/", logo: "https://logo.clearbit.com/connectedpapers.com", description: "لرسم خرائط بصرية تظهر العلاقات بين الأوراق البحثية.", category: "للباحثين", pricing: "مجاني/مدفوع", arabic_support: "لا" },
+            { name: "Scite.ai", url: "https://scite.ai/", logo: "https://logo.clearbit.com/scite.ai", description: "لتقييم موثوقية الدراسات من خلال عرض كيفية الاستشهاد بها.", category: "للباحثين", pricing: "مجاني/مدفوع", arabic_support: "لا" },
+            { name: "Zotero", url: "https://www.zotero.org/", logo: "https://logo.clearbit.com/zotero.org", description: "لإدارة المراجع وإنشاء قوائم الم ببليوغرافيا تلقائيًا.", category: "للباحثين", pricing: "مجاني", arabic_support: "نعم" },
+            { name: "Trinka AI", url: "https://www.trinka.ai/", logo: "https://logo.clearbit.com/trinka.ai", description: "مساعد كتابة أكاديمية متخصص في تصحيح الأخطاء النحوية والأسلوبية.", category: "للباحثين", pricing: "مجاني/مدفوع", arabic_support: "لا" },
+            { name: "Consensus", url: "https://consensus.app/", logo: "https://logo.clearbit.com/consensus.app", description: "محرك بحث يستخدم الذكاء الاصطناعي للعثور على نتائج من الأبحاث.", category: "للباحثين", pricing: "مجاني/مدفوع", arabic_support: "لا" },
+            { name: "ResearchRabbit", url: "https://www.researchrabbit.ai/", logo: "https://logo.clearbit.com/researchrabbit.ai", description: "أداة لاكتشاف الأدبيات العلمية وتصورها.", category: "للباحثين", pricing: "مجاني", arabic_support: "لا" },
+            { name: "Litmaps", url: "https://www.litmaps.com/", logo: "https://logo.clearbit.com/litmaps.com", description: "لإنشاء خرائط للمراجع العلمية واكتشاف الأبحاث الجديدة تلقائيًا.", category: "للباحثين", pricing: "مجاني/مدفوع", arabic_support: "لا" },
+            // للأطباء 🩺
+            { name: "Viz.ai", url: "https://www.viz.ai/", logo: "https://logo.clearbit.com/viz.ai", description: "يستخدم الذكاء الاصطناعي لتحليل الصور الطبية والكشف المبكر.", category: "للأطباء", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "PathAI", url: "https://www.pathai.com/", logo: "https://logo.clearbit.com/pathai.com", description: "منصة لعلم الأمراض مدعومة بالذكاء الاصطناعي لتحسين دقة التشخيص.", category: "للأطباء", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "Tempus", url: "https://www.tempus.com/", logo: "https://logo.clearbit.com/tempus.com", description: "لتحليل البيانات الجزيئية والسريرية لتخصيص علاج السرطان.", category: "للأطباء", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "Aidoc", url: "https://www.aidoc.com/", logo: "https://logo.clearbit.com/aidoc.com", description: "لتحليل فحوصات الأشعة وتحديد الحالات الحرجة بسرعة.", category: "للأطباء", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "Butterfly iQ+", url: "https://www.butterflynetwork.com/", logo: "https://logo.clearbit.com/butterflynetwork.com", description: "جهاز محمول للموجات فوق الصوتية يستخدم الذكاء الاصطناعي.", category: "للأطباء", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "Abridge", url: "https://www.abridge.com/", logo: "https://logo.clearbit.com/abridge.com", description: "لتلخيص المحادثات الطبية وتدوين الملاحظات تلقائيًا.", category: "للأطباء", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "Glass AI", url: "https://glass.health/", logo: "https://logo.clearbit.com/glass.health", description: "قاعدة معرفية طبية تفاضلية للمساعدة في التشخيص.", category: "للأطباء", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "Suki", url: "https://www.suki.ai/", logo: "https://logo.clearbit.com/suki.ai", description: "مساعد صوتي مدعوم بالذكاء الاصطناعي لتقليل وقت التوثيق الطبي.", category: "للأطباء", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "Ada Health", url: "https://ada.com/", logo: "https://logo.clearbit.com/ada.com", description: "تطبيق يساعد المرضى على فهم أعراضهم، ويدعم الأطباء.", category: "للأطباء", pricing: "مجاني/مدفوع", arabic_support: "نعم" },
+            { name: "Corti", url: "https://www.corti.ai/", logo: "https://logo.clearbit.com/corti.ai", description: "يحلل محادثات الطوارئ لتقديم إرشادات للمستجيبين.", category: "للأطباء", pricing: "مدفوع", arabic_support: "لا" },
+            // للمحامين ⚖️
+            { name: "Casetext (CoCounsel)", url: "https://casetext.com/cocounsel/", logo: "https://logo.clearbit.com/casetext.com", description: "مساعد قانوني للبحث ومراجعة المستندات وإعداد المذكرات.", category: "للمحامين", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "Harvey AI", url: "https://www.harvey.ai/", logo: "https://logo.clearbit.com/harvey.ai", description: "منصة ذكاء اصطناعي مصممة خصيصًا للمهام القانونية المعقدة.", category: "للمحامين", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "Lexis+ AI", url: "https://www.lexisnexis.com/en-us/products/lexis-plus/ai.page", logo: "https://logo.clearbit.com/lexisnexis.com", description: "حل متكامل للبحث القانوني وتحليل المستندات وصياغتها.", category: "للمحامين", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "Westlaw Edge", url: "https://legal.thomsonreuters.com/en/products/westlaw-edge", logo: "https://logo.clearbit.com/thomsonreuters.com", description: "يستخدم الذكاء الاصطناعي لتحسين سرعة ودقة البحث القانوني.", category: "للمحامين", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "Kira Systems", url: "https://www.kirasystems.com/", logo: "https://logo.clearbit.com/kirasystems.com", description: "لتحليل العقود والمستندات واستخلاص البنود الرئيسية.", category: "للمحامين", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "Luminance", url: "https://www.luminance.com/", logo: "https://logo.clearbit.com/luminance.com", description: "منصة ذكاء اصطناعي لمراجعة العقود والعناية الواجبة.", category: "للمحامين", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "eDiscovery.ai", url: "https://www.ediscovery.ai/", logo: "https://logo.clearbit.com/ediscovery.ai", description: "لأتمتة وتحسين عملية المراجعة في الاكتشاف الإلكتروني.", category: "للمحامين", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "DoNotPay", url: "https://donotpay.com/", logo: "https://logo.clearbit.com/donotpay.com", description: "يساعد في حل مجموعة متنوعة من القضايا القانونية الصغيرة.", category: "للمحامين", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "ContractPodAi", url: "https://www.contractpodai.com/", logo: "https://logo.clearbit.com/contractpodai.com", description: "لإدارة دورة حياة العقود بالكامل باستخدام الذكاء الاصطناعي.", category: "للمحامين", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "vLex (Vincent AI)", url: "https://vlex.com/", logo: "https://logo.clearbit.com/vlex.com", description: "مساعد بحث قانوني عالمي.", category: "للمحامين", pricing: "مدفوع", arabic_support: "لا" },
+            // للمهندسين المعماريين 🏛️
+            { name: "Finch3D", url: "https://www.finch3d.com/", logo: "https://logo.clearbit.com/finch3d.com", description: "مساعد ذكاء اصطناعي لبرنامج Revit لتحسين وتصميم مخططات المباني.", category: "للمهندسين المعماريين", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "Veras", url: "https://www.evolvelab.io/veras", logo: "https://logo.clearbit.com/evolvelab.io", description: "أداة لتصور التصاميم وتحويل النماذج ثلاثية الأبعاد إلى صور واقعية.", category: "للمهندسين المعماريين", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "Hypar", url: "https://hypar.io/", logo: "https://logo.clearbit.com/hypar.io", description: "منصة تصميم توليدي لإنشاء حلول للمباني والمساحات.", category: "للمهندسين المعماريين", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "Cove.tool", url: "https://cove.tools/", logo: "https://logo.clearbit.com/cove.tools", description: "لتحليل أداء المباني (الطاقة، ضوء النهار، التكلفة).", category: "للمهندسين المعماريين", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "Arkio", url: "https://www.arkio.is/", logo: "https://logo.clearbit.com/arkio.is", description: "لتصميم المباني والمدن بشكل تعاوني في الواقع الافتراضي.", category: "للمهندسين المعماريين", pricing: "مجاني/مدفوع", arabic_support: "لا" },
+            { name: "Sidewalk Labs (Delve)", url: "https://www.sidewalklabs.com/products/delve", logo: "https://logo.clearbit.com/sidewalklabs.com", description: "لتوليد خيارات تصميم حضري محسّنة.", category: "للمهندسين المعماريين", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "Maket.ai", url: "https://www.maket.ai/", logo: "https://logo.clearbit.com/maket.ai", description: "لتوليد مخططات طوابق معمارية بسرعة.", category: "للمهندسين المعماريين", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "TestFit", url: "https://testfit.io/", logo: "https://logo.clearbit.com/testfit.io", description: "لتكوين مخططات المواقع والمباني بشكل فوري.", category: "للمهندسين المعماريين", pricing: "مدفوع", arabic_support: "لا" },
+            // لمديري المشاريع 🗓️
+            { name: "ClickUp AI", url: "https://clickup.com/ai", logo: "https://logo.clearbit.com/clickup.com", description: "لإدارة المهام، وتوليد الملخصات، وأتمتة سير العمل.", category: "لمديري المشاريع", pricing: "مدفوع", arabic_support: "نعم" },
+            { name: "Asana Intelligence", url: "https://asana.com/ai", logo: "https://logo.clearbit.com/asana.com", description: "لتقديم رؤى ذكية حول تقدم المشاريع وتحسين التخطيط.", category: "لمديري المشاريع", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "Motion", url: "https://www.usemotion.com/", logo: "https://logo.clearbit.com/usemotion.com", description: "يستخدم الذكاء الاصطناعي لجدولة المهام والاجتماعات تلقائيًا.", category: "لمديري المشاريع", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "Trello AI", url: "https://trello.com/ai", logo: "https://logo.clearbit.com/trello.com", description: "لتقديم اقتراحات ذكية لتنظيم البطاقات وأتمتة المهام.", category: "لمديري المشاريع", pricing: "مدفوع", arabic_support: "نعم" },
+            { name: "Wrike AI", url: "https://www.wrike.com/features/ai-project-management/", logo: "https://logo.clearbit.com/wrike.com", description: "للتنبؤ بمخاطر المشاريع وأتمتة الموافقات.", category: "لمديري المشاريع", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "monday.com AI", url: "https://monday.com/ai-assistant", logo: "https://logo.clearbit.com/monday.com", description: "لأتمتة المهام المتكررة وإنشاء التقارير.", category: "لمديري المشاريع", pricing: "مدفوع", arabic_support: "نعم" },
+            { name: "Notion AI", url: "https://www.notion.so/product/ai", logo: "https://logo.clearbit.com/notion.so", description: "لإنشاء الملخصات، وجداول الأعمال، وتوزيع المهام داخل مساحة العمل.", category: "لمديري المشاريع", pricing: "مدفوع", arabic_support: "نعم" },
+            { name: "Fireflies.ai", url: "https://fireflies.ai/", logo: "https://logo.clearbit.com/fireflies.ai", description: "لتدوين ملاحظات الاجتماعات وتلخيصها وتوزيع المهام.", category: "لمديري المشاريع", pricing: "مجاني/مدفوع", arabic_support: "لا" },
+            { name: "Forecast.app", url: "https://www.accelo.com/products/forecast/", logo: "https://logo.clearbit.com/accelo.com", description: "للتنبؤ بالموارد والجداول الزمنية للمشاريع.", category: "لمديري المشاريع", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "Teamwork.com AI", url: "https://www.teamwork.com/ai-project-manager/", logo: "https://logo.clearbit.com/teamwork.com", description: "للمساعدة في إنشاء المهام وإدارة المحتوى المتعلق بالمشاريع.", category: "لمديري المشاريع", pricing: "مدفوع", arabic_support: "لا" },
+            // لأخصائيي الموارد البشرية 🧑‍💼
+            { name: "HireVue", url: "https://www.hirevue.com/", logo: "https://logo.clearbit.com/hirevue.com", description: "لإجراء مقابلات فيديو مدعومة بالذكاء الاصطناعي وتقييم المرشحين.", category: "لأخصائيي الموارد البشرية", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "Eightfold.ai", url: "https://eightfold.ai/", logo: "https://logo.clearbit.com/eightfold.ai", description: "منصة ذكاء مواهب لإدارة دورة حياة الموظف بالكامل.", category: "لأخصائيي الموارد البشرية", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "Paradox (Olivia)", url: "https://www.paradox.ai/", logo: "https://logo.clearbit.com/paradox.ai", description: "مساعد توظيف محادثاتي لأتمتة جدولة المقابلات والرد على المرشحين.", category: "لأخصائيي الموارد البشرية", pricing: "مدفوع", arabic_support: "نعم" },
+            { name: "Glean", url: "https://www.glean.com/", logo: "https://logo.clearbit.com/glean.com", description: "محرك بحث ذكي لمساعدة الموظفين في العثور على المعلومات.", category: "لأخصائيي الموارد البشرية", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "Leena AI", url: "https://leena.ai/", logo: "https://logo.clearbit.com/leena.ai", description: "منصة لإدارة تجربة الموظفين وحل استفساراتهم تلقائيًا.", category: "لأخصائيي الموارد البشرية", pricing: "مدفوع", arabic_support: "نعم" },
+            { name: "Textio", url: "https://textio.com/", logo: "https://logo.clearbit.com/textio.com", description: "لتحسين لغة إعلانات الوظائف لجذب مجموعة متنوعة من المرشحين.", category: "لأخصائيي الموارد البشرية", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "Visier", url: "https://www.visier.com/", logo: "https://logo.clearbit.com/visier.com", description: "منصة تحليلات الموظفين لتقديم رؤى حول القوى العاملة.", category: "لأخصائيي الموارد البشرية", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "Pymetrics", url: "https://www.pymetrics.ai/", logo: "https://logo.clearbit.com/pymetrics.ai", description: "تستخدم الألعاب لتقييم المهارات الشخصية للمرشحين.", category: "لأخصائيي الموارد البشرية", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "Culture Amp", url: "https://www.cultureamp.com/", logo: "https://logo.clearbit.com/cultureamp.com", description: "منصة لجمع وتحليل ملاحظات الموظفين باستخدام الذكاء الاصطناعي.", category: "لأخصائيي الموارد البشرية", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "Personio", url: "https://www.personio.com/", logo: "https://logo.clearbit.com/personio.com", description: "نظام شامل للموارد البشرية مع ميزات أتمتة مدعومة بالذكاء الاصطناعي.", category: "لأخصائيي الموارد البشرية", pricing: "مدفوع", arabic_support: "لا" },
+            // للمحاسبين 💰
+            { name: "DEXT", url: "https://dext.com/", logo: "https://logo.clearbit.com/dext.com", description: "لأتمتة إدخال البيانات من الفواتير والإيصالات.", category: "للمحاسبين", pricing: "مدفوع", arabic_support: "نعم" },
+            { name: "Botkeeper", url: "https://www.botkeeper.com/", logo: "https://logo.clearbit.com/botkeeper.com", description: "يقدم مسك دفاتر آلي مدعوم بالذكاء الاصطناعي.", category: "للمحاسبين", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "Vic.ai", url: "https://www.vic.ai/", logo: "https://logo.clearbit.com/vic.ai", description: "منصة لأتمتة الحسابات الدائنة والعمليات المحاسبية.", category: "للمحاسبين", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "QuickBooks Online", url: "https://quickbooks.intuit.com/", logo: "https://logo.clearbit.com/intuit.com", description: "يستخدم الذكاء الاصطناعي لتصنيف المعاملات وتقديم رؤى مالية.", category: "للمحاسبين", pricing: "مدفوع", arabic_support: "نعم" },
+            { name: "Xero", url: "https://www.xero.com/", logo: "https://logo.clearbit.com/xero.com", description: "لأتمتة المهام المحاسبية اليومية وتقديم تنبؤات بالتدفق النقدي.", category: "للمحاسبين", pricing: "مدفوع", arabic_support: "نعم" },
+            { name: "Expensify", url: "https://www.expensify.com/", logo: "https://logo.clearbit.com/expensify.com", description: "لإدارة تقارير النفقات تلقائيًا باستخدام التعرف الذكي.", category: "للمحاسبين", pricing: "مدفوع", arabic_support: "نعم" },
+            { name: "Auditoria.AI", url: "https://www.auditoria.ai/", logo: "https://logo.clearbit.com/auditoria.ai", description: "لأتمتة المهام المالية المتكررة في الحسابات الدائنة والمدينة.", category: "للمحاسبين", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "Docyt", url: "https://docyt.com/", logo: "https://logo.clearbit.com/docyt.com", description: "محرك محاسبة يعمل بالذكاء الاصطناعي لأتمتة مسك الدفاتر.", category: "للمحاسبين", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "Zeni", url: "https://www.zeni.ai/", logo: "https://logo.clearbit.com/zeni.ai", description: "خدمة مالية شاملة تستخدم الذكاء الاصطناعي لإدارة الشؤون المالية.", category: "للمحاسبين", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "Indy", url: "https://indy.com/", logo: "https://logo.clearbit.com/indy.com", description: "منصة متكاملة للمستقلين تتضمن أدوات فواتير ومحاسبة ذكية.", category: "للمحاسبين", pricing: "مدفوع", arabic_support: "لا" },
+            
+            // الفئات الجديدة - التمريض 🏥
+            { name: "NurseGrid", url: "https://www.nursegrid.com/", logo: "https://logo.clearbit.com/nursegrid.com", description: "منصة ذكية لإدارة جداول العمل والمهام للممرضين.", category: "للتمريض", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "Care.ai", url: "https://care.ai/", logo: "https://logo.clearbit.com/care.ai", description: "نظام مراقبة ذكي للمرضى باستخدام أجهزة الاستشعار والذكاء الاصطناعي.", category: "للتمريض", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "Kepler Nurse", url: "https://www.kepler.co/", logo: "https://logo.clearbit.com/kepler.co", description: "مساعد افتراضي للممرضين لتوثيق الرعاية وتحسين سير العمل.", category: "للتمريض", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "TigerConnect", url: "https://www.tigerconnect.com/", logo: "https://logo.clearbit.com/tigerconnect.com", description: "منصة تواصل آمنة للفرق الطبية مع تحليلات ذكية.", category: "للتمريض", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "NurseMind", url: "https://www.nursemind.com/", logo: "https://logo.clearbit.com/nursemind.com", description: "أداة ذكاء اصطناعي لتحليل بيانات المرضى وتقديم توصيات الرعاية.", category: "للتمريض", pricing: "مدفوع", arabic_support: "لا" },
+            
+            // الفئات الجديدة - المختبرات الطبية 🔬
+            { name: "Proscia", url: "https://www.proscia.com/", logo: "https://logo.clearbit.com/proscia.com", description: "منصة تحليل رقمي لعلم الأمراض باستخدام الذكاء الاصطناعي.", category: "للمختبرات الطبية", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "PathAI", url: "https://www.pathai.com/", logo: "https://logo.clearbit.com/pathai.com", description: "تحليل شرائح الأنسجة بدقة عالية وتحديد التشوهات.", category: "للمختبرات الطبية", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "Lunit Insight", url: "https://www.lunit.io/", logo: "https://logo.clearbit.com/lunit.io", description: "تحليل صور الأشعة السينية والطباعية بدقة غير مسبوقة.", category: "للمختبرات الطبية", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "Aidoc", url: "https://www.aidoc.com/", logo: "https://logo.clearbit.com/aidoc.com", description: "تحليل نتائج المختبرات وتحديد الحالات الطارئة تلقائيًا.", category: "للمختبرات الطبية", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "Paige AI", url: "https://www.paige.ai/", logo: "https://logo.clearbit.com/paige.ai", description: "منصة تشخيص سرطان البروستاتا باستخدام الذكاء الاصطناعي.", category: "للمختبرات الطبية", pricing: "مدفوع", arabic_support: "لا" },
+            
+            // الفئات الجديدة - الصيدلة 💊
+            { name: "PharmEasy", url: "https://pharmeasy.in/", logo: "https://logo.clearbit.com/pharmeasy.in", description: "منصة ذكية لإدارة الصيدليات وتحليل الوصفات الطبية.", category: "للصيدلة", pricing: "مجاني/مدفوع", arabic_support: "نعم" },
+            { name: "Rx.ai", url: "https://www.rx.ai/", logo: "https://logo.clearbit.com/rx.ai", description: "كشف التفاعلات الدوائية وتحسين سلامة الأدوية.", category: "للصيدلة", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "PharmaEngine", url: "https://www.pharmaengine.com/", logo: "https://logo.clearbit.com/pharmaengine.com", description: "تحليل البيانات الدوائية وتحسين فعالية العلاجات.", category: "للصيدلة", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "CureMetrix", url: "https://www.curemetrix.com/", logo: "https://logo.clearbit.com/curemetrix.com", description: "تحليل الصور الطبية لتشخيص الأمراض بدقة.", category: "للصيدلة", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "Pharma Intelligence", url: "https://www.pharmaintelligence.informa.com/", logo: "https://logo.clearbit.com/informa.com", description: "تحليلات ذكية لصناعة الأدوية وتطوراتها.", category: "للصيدلة", pricing: "مدفوع", arabic_support: "لا" },
+            
+            // الفئات الجديدة - الأسنان 🦷
+            { name: "Overjet", url: "https://www.overjet.ai/", logo: "https://logo.clearbit.com/overjet.ai", description: "تحليل صور الأشعة السينية للأسنان وتحديد المشاكل.", category: "لأطباء الأسنان", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "VideaHealth", url: "https://www.videahealth.com/", logo: "https://logo.clearbit.com/videahealth.com", description: "منصة ذكاء اصطناعي لتشخيص أمراض اللثة والأسنان.", category: "لأطباء الأسنان", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "DentalMonitoring", url: "https://www.dentalmonitoring.com/", logo: "https://logo.clearbit.com/dentalmonitoring.com", description: "مراقبة تقدم علاجات تقويم الأسنان عن بعد.", category: "لأطباء الأسنان", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "Denti.AI", url: "https://denti.ai/", logo: "https://logo.clearbit.com/denti.ai", description: "تخطيط علاجات الأسنان وتصميم الأجهزة التقويمية.", category: "لأطباء الأسنان", pricing: "مدفوع", arabic_support: "لا" },
+            
+            // الفئات الجديدة - المصورين 📸
+            { name: "Luminar Neo", url: "https://skylum.com/luminar", logo: "https://logo.clearbit.com/skylum.com", description: "برنامج تحرير صور متطور باستخدام الذكاء الاصطناعي.", category: "للمصورين", pricing: "مدفوع", arabic_support: "نعم" },
+            { name: "Adobe Photoshop AI", url: "https://www.adobe.com/products/photoshop.html", logo: "https://logo.clearbit.com/adobe.com", description: "أدوات ذكاء اصطناعي متقدمة لتحرير الصور الاحترافية.", category: "للمصورين", pricing: "مدفوع", arabic_support: "نعم" },
+            { name: "Topaz Labs", url: "https://topazlabs.com/", logo: "https://logo.clearbit.com/topazlabs.com", description: "تحسين جودة الصور وتقليل الضوضاء باستخدام الذكاء الاصطناعي.", category: "للمصورين", pricing: "مدفوع", arabic_support: "نعم" },
+            { name: "Runway ML", url: "https://runwayml.com/", logo: "https://logo.clearbit.com/runwayml.com", description: "منصة إبداعية لتعديل الفيديو والصور بالذكاء الاصطناعي.", category: "للمصورين", pricing: "مجاني/مدفوع", arabic_support: "نعم" },
+            { name: "Pixelmator Pro", url: "https://www.pixelmator.com/pro/", logo: "https://logo.clearbit.com/pixelmator.com", description: "تحرير صور احترافي مع أدوات ذكاء اصطناعي متقدمة.", category: "للمصورين", pricing: "مدفوع", arabic_support: "نعم" },
+            
+            // الفئات الجديدة - للمستثمرين والمحللين الماليين 📈
+            { name: "Bloomberg Terminal", url: "https://www.bloomberg.com/professional/", logo: "https://logo.clearbit.com/bloomberg.com", description: "منصة متكاملة للتحليل المالي والتنبؤ بالأسواق المالية.", category: "للمستثمرين والمحللين الماليين", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "Kensho", url: "https://www.kensho.com/", logo: "https://logo.clearbit.com/kensho.com", description: "محرك تحليل ذكي للبيانات المالية وتنبؤات السوق.", category: "للمستثمرين والمحللين الماليين", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "AlphaSense", url: "https://www.alphasense.com/", logo: "https://logo.clearbit.com/alphasense.com", description: "منصة بحث ذكية للبيانات المالية وأبحاث السوق.", category: "للمستثمرين والمحللين الماليين", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "Kavout", url: "https://www.kavout.com/", logo: "https://logo.clearbit.com/kavout.com", description: "منصة ذكاء اصطناعي للاستثمار الكمي وتحليل الأسهم.", category: "للمستثمرين والمحللين الماليين", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "Trade Ideas", url: "https://www.tradeideas.com/", logo: "https://logo.clearbit.com/tradeideas.com", description: "مساعد تداول ذكي يقدم إشارات تداول بناءً على تحليل السوق.", category: "للمستثمرين والمحللين الماليين", pricing: "مدفوع", arabic_support: "لا" },
+            
+            // الفئات الجديدة - للمترجمين ولغويين 🌐
+            { name: "DeepL", url: "https://www.deepl.com/translator", logo: "https://logo.clearbit.com/deepl.com", description: "محرك ترجمة دقيق يدعم العديد من اللغات واللهجات.", category: "للمترجمين ولغويين", pricing: "مجاني/مدفوع", arabic_support: "نعم" },
+            { name: "Google Translate", url: "https://translate.google.com/", logo: "https://logo.clearbit.com/google.com", description: "أداة ترجمة مجانية تدعم أكثر من 100 لغة.", category: "للمترجمين ولغويين", pricing: "مجاني", arabic_support: "نعم" },
+            { name: "Unbabel", url: "https://unbabel.com/", logo: "https://logo.clearbit.com/unbabel.com", description: "منصة ترجمة تجمع بين الذكاء الاصطناعي والمترجمين البشر.", category: "للمترجمين ولغويين", pricing: "مدفوع", arabic_support: "نعم" },
+            { name: "Smartling", url: "https://www.smartling.com/", logo: "https://logo.clearbit.com/smartling.com", description: "منصة ترجمة وإدارة محتوى متعددة اللغات.", category: "للمترجمين ولغويين", pricing: "مدفوع", arabic_support: "نعم" },
+            { name: "Systran", url: "https://www.systransoft.com/", logo: "https://logo.clearbit.com/systransoft.com", description: "حلول ترجمة ذكية للمؤسسات والأفراد.", category: "للمترجمين ولغويين", pricing: "مدفوع", arabic_support: "نعم" },
+            
+            // الفئات الجديدة - للموسيقيين والملحنين 🎵
+            { name: "Amper Music", url: "https://www.permusic.com/", logo: "https://logo.clearbit.com/permusic.com", description: "لإنشاء موسيقى أصلية مخصصة للمشاريع الإبداعية.", category: "للموسيقيين والملحنين", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "AIVA", url: "https://www.aiva.ai/", logo: "https://logo.clearbit.com/aiva.ai", description: "ملحن ذكاء اصطناعي لإنشاء موسيقى عاطفية للأفلام والألعاب.", category: "للموسيقيين والملحنين", pricing: "مجاني/مدفوع", arabic_support: "لا" },
+            { name: "Soundraw", url: "https://soundraw.com/", logo: "https://logo.clearbit.com/soundraw.com", description: "لإنشاء موسيقى بدون حقوق ملكية للفيديوهات والبودكاست.", category: "للموسيقيين والملحنين", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "LANDR", url: "https://www.landr.com/", logo: "https://logo.clearbit.com/landr.com", description: "لإتقان الصوت وإتقان الموسيقى باستخدام الذكاء الاصطناعي.", category: "للموسيقيين والملحنين", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "Moises.ai", url: "https://moises.ai/", logo: "https://logo.clearbit.com/moises.ai", description: "لفصل الآلات الموسيقية والصوت عن الأغاني.", category: "للموسيقيين والملحنين", pricing: "مجاني/مدفوع", arabic_support: "نعم" },
+            
+            // الفئات الجديدة - للصحفيين والكتاب ✍️
+            { name: "Grammarly", url: "https://www.grammarly.com/", logo: "https://logo.clearbit.com/grammarly.com", description: "لتحسين الكتابة وتصحيح الأخطاء النحوية والأسلوبية.", category: "للصحفيين والكتاب", pricing: "مجاني/مدفوع", arabic_support: "نعم" },
+            { name: "Hemingway Editor", url: "https://hemingwayapp.com/", logo: "https://logo.clearbit.com/hemingwayapp.com", description: "لتحسين أسلوب الكتابة وجعلها أكثر وضوحًا.", category: "للصحفيين والكتاب", pricing: "مجاني/مدفوع", arabic_support: "نعم" },
+            { name: "Wordsmith", url: "https://www.automatedinsights.com/wordsmith/", logo: "https://logo.clearbit.com/automatedinsights.com", description: "لإنشاء تقارير ومقالات إخبارية بشكل آلي.", category: "للصحفيين والكتاب", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "QuillBot", url: "https://quillbot.com/", logo: "https://logo.clearbit.com/quillbot.com", description: "لإعادة صياغة النصوص وتحسين جودة المحتوى.", category: "للصحفيين والكتاب", pricing: "مجاني/مدفوع", arabic_support: "نعم" },
+            { name: "Article Forge", url: "https://www.articleforge.com/", logo: "https://logo.clearbit.com/articleforge.com", description: "لكتابة مقالات فريدة ومنظمة بشكل آلي.", category: "للصحفيين والكتاب", pricing: "مدفوع", arabic_support: "لا" },
+            
+            // الفئات الجديدة - للعاملين في مجال التجارة الإلكترونية 🛒
+            { name: "Shopify Kit", url: "https://www.shopify.com/kit", logo: "https://logo.clearbit.com/shopify.com", description: "مساعد تسويق ذكي لمتاجر التجارة الإلكترونية.", category: "للعاملين في مجال التجارة الإلكترونية", pricing: "مدفوع", arabic_support: "نعم" },
+            { name: "Octane AI", url: "https://octaneai.com/", logo: "https://logo.clearbit.com/octaneai.com", description: "لإنشاء روبوتات محادثة ذكية لمتاجر التجارة الإلكترونية.", category: "للعاملين في مجال التجارة الإلكترونية", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "Granify", url: "https://www.granify.com/", logo: "https://logo.clearbit.com/granify.com", description: "لزيادة المبيعات من خلال تحسين تجربة التسوق.", category: "للعاملين في مجال التجارة الإلكترونية", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "Vue.ai", url: "https://www.vue.ai/", logo: "https://logo.clearbit.com/vue.ai", description: "لتحسين الصور المنتجات وتخصيص تجربة التسوق.", category: "للعاملين في مجال التجارة الإلكترونية", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "Syte", url: "https://www.syte.ai/", logo: "https://logo.clearbit.com/syte.ai", description: "لتقديم توصيات منتجات ذكية وتحسين تجربة المستخدم.", category: "للعاملين في مجال التجارة الإلكترونية", pricing: "مدفوع", arabic_support: "لا" },
+            
+            // الفئات الجديدة - للمزارعين والعاملين في القطاع الزراعي 🌾
+            { name: "Blue River Technology", url: "https://www.bluerivertechnology.com/", logo: "https://logo.clearbit.com/bluerivertechnology.com", description: "للتحكم الدقيق في الأعشاب الضارة في المزارع.", category: "للمزارعين والعاملين في القطاع الزراعي", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "Prospera", url: "https://www.prospera.ag/", logo: "https://logo.clearbit.com/prospera.ag", description: "لرصد صحة المحاصيل وتحليل بيانات المزارع.", category: "للمزارعين والعاملين في القطاع الزراعي", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "Taranis", url: "https://www.taranis.com/", logo: "https://logo.clearbit.com/taranis.com", description: "لرصد صحة المحاصيل باستخدام الطائرات بدون طيار.", category: "للمزارعين والعاملين في القطاع الزراعي", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "FarmBot", url: "https://farm.bot/", logo: "https://logo.clearbit.com/farm.bot", description: "روبوت زراعي ذكي لزراعة الحدائق والمزارع الصغيرة.", category: "للمزارعين والعاملين في القطاع الزراعي", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "CropX", url: "https://www.cropx.com/", logo: "https://logo.clearbit.com/cropx.com", description: "لإدارة الري الزراعي الذكي وتحليل التربة.", category: "للمزارعين والعاملين في القطاع الزراعي", pricing: "مدفوع", arabic_support: "لا" },
+            
+            // الفئات الجديدة - للمعلمين اللغويين ومدرسي اللغات 🗣️
+            { name: "Duolingo", url: "https://www.duolingo.com/", logo: "https://logo.clearbit.com/duolingo.com", description: "لتعلم اللغات بطريقة تفاعلية ومخصصة.", category: "للمعلمين اللغويين ومدرسي اللغات", pricing: "مجاني/مدفوع", arabic_support: "نعم" },
+            { name: "Babbel", url: "https://www.babbel.com/", logo: "https://logo.clearbit.com/babbel.com", description: "لتعلم اللغات العملية والمحادثات اليومية.", category: "للمعلمين اللغويين ومدرسي اللغات", pricing: "مدفوع", arabic_support: "نعم" },
+            { name: "Rosetta Stone", url: "https://www.rosettastone.com/", logo: "https://logo.clearbit.com/rosettastone.com", description: "لتعلم اللغات بطريقة الغمر والتفاعل المباشر.", category: "للمعلمين اللغويين ومدرسي اللغات", pricing: "مدفوع", arabic_support: "نعم" },
+            { name: "Lingvist", url: "https://lingvist.com/", logo: "https://logo.clearbit.com/lingvist.com", description: "لتسريع تعلم اللغات باستخدام الذكاء الاصطناعي.", category: "للمعلمين اللغويين ومدرسي اللغات", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "ELSA Speak", url: "https://www.elsaspeak.com/", logo: "https://logo.clearbit.com/elsaspeak.com", description: "لتحسين النطق واللهجة في اللغة الإنجليزية.", category: "للمعلمين اللغويين ومدرسي اللغات", pricing: "مجاني/مدفوع", arabic_support: "نعم" },
+            
+            // الفئات الجديدة - للمسافرين ووكالات السفر ✈️
+            { name: "Hopper", url: "https://www.hopper.com/", logo: "https://logo.clearbit.com/hopper.com", description: "للتنبؤ بأفضل وقت لحجز تذاكر الطيران والفنادق.", category: "للمسافرين ووكالات السفر", pricing: "مجاني", arabic_support: "نعم" },
+            { name: "Kayak", url: "https://www.kayak.com/", logo: "https://logo.clearbit.com/kayak.com", description: "لمقارنة أسعار السفر والعثور على أفضل الصفقات.", category: "للمسافرين ووكالات السفر", pricing: "مجاني", arabic_support: "نعم" },
+            { name: "Skyscanner", url: "https://www.skyscanner.net/", logo: "https://logo.clearbit.com/skyscanner.net", description: "لبحث ومقارنة تذاكر الطيران والفنادق وتأجير السيارات.", category: "للمسافرين ووكالات السفر", pricing: "مجاني", arabic_support: "نعم" },
+            { name: "Lola", url: "https://www.lolatravel.com/", logo: "https://logo.clearbit.com/lolatravel.com", description: "للتخطيط للرحلات وحجزها بمساعدة الذكاء الاصطناعي.", category: "للمسافرين ووكالات السفر", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "Utrip", url: "https://www.utrip.com/", logo: "https://logo.clearbit.com/utrip.com", description: "للتخطيط لرحلات مخصصة بناءً على اهتمامات المسافر.", category: "للمسافرين ووكالات السفر", pricing: "مجاني", arabic_support: "نعم" },
+            
+            // الفئات الجديدة - للمصممين الداخليين ومهندسي الديكور 🏠
+            { name: "Houzz", url: "https://www.houzz.com/", logo: "https://logo.clearbit.com/houzz.com", description: "للإلهام بالتصاميم الداخلية والعثور على محترفين.", category: "للمصممين الداخليين ومهندسي الديكور", pricing: "مجاني", arabic_support: "نعم" },
+            { name: "Modsy", url: "https://www.modsy.com/", logo: "https://logo.clearbit.com/modsy.com", description: "لتصميم الديكور الداخلي ثلاثي الأبعاد.", category: "للمصممين الداخليين ومهندسي الديكور", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "Planner 5D", url: "https://planner5d.com/", logo: "https://logo.clearbit.com/planner5d.com", description: "لإنشاء تصاميم داخلية وخارجية في ثنائي وثلاثي الأبعاد.", category: "للمصممين الداخليين ومهندسي الديكور", pricing: "مجاني/مدفوع", arabic_support: "نعم" },
+            { name: "Homestyler", url: "https://www.homestyler.com/", logo: "https://logo.clearbit.com/homestyler.com", description: "لتصميم وتصور الديكور الداخلي بشكل احترافي.", category: "للمصممين الداخليين ومهندسي الديكور", pricing: "مجاني/مدفوع", arabic_support: "نعم" },
+            { name: "RoomGPT", url: "https://roomgpt.io/", logo: "https://logo.clearbit.com/roomgpt.io", description: "لتوليد تصاميم داخلية بناءً على صور الغرف.", category: "للمصممين الداخليين ومهندسي الديكور", pricing: "مجاني", arabic_support: "لا" },
+            
+            // الفئات الجديدة - لعلماء البيئة والمتخصصين في الاستدامة 🌿
+            { name: "ClimateAI", url: "https://www.climate.ai/", logo: "https://logo.clearbit.com/climate.ai", description: "لتحليل تأثير التغير المناخي على الزراعة والغذاء.", category: "لعلماء البيئة والمتخصصين في الاستدامة", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "SilviaTerra", url: "https://www.silviaterra.com/", logo: "https://logo.clearbit.com/silviaterra.com", description: "لتحليل ورصد الغابات باستخدام الذكاء الاصطناعي.", category: "لعلماء البيئة والمتخصصين في الاستدامة", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "Descartes Labs", url: "https://www.descarteslabs.com/", logo: "https://logo.clearbit.com/descarteslabs.com", description: "لتحليل صور الأقمار الصناعية لمراقبة الأرض.", category: "لعلماء البيئة والمتخصصين في الاستدامة", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "Orbital Insight", url: "https://www.orbitalinsight.com/", logo: "https://logo.clearbit.com/orbitalinsight.com", description: "لتحليل بيانات الأقمار الصناعية لفهم الأنشطة البشرية.", category: "لعلماء البيئة والمتخصصين في الاستدامة", pricing: "مدفوع", arabic_support: "لا" },
+            { name: "Blue Marble", url: "https://bluemarble.ai/", logo: "https://logo.clearbit.com/bluemarble.ai", description: "لمحاكاة تأثير المشاريع على البيئة والمناخ.", category: "لعلماء البيئة والمتخصصين في الاستدامة", pricing: "مدفوع", arabic_support: "لا" }
+        ];
+        
+        const toolsGrid = document.getElementById('tools-grid');
+        const searchInput = document.getElementById('search-input');
+        const filterContainer = document.getElementById('filter-container');
+        const categoryIntroEl = document.getElementById('category-intro');
+        const categories = ['الكل', ...new Set(aiToolsData.map(tool => tool.category))];
+        
+        // Create filter buttons
+        categories.forEach((category, index) => {
+            const button = document.createElement('button');
+            button.className = 'filter-btn px-4 py-2 rounded-full text-sm transition';
+            if (category === 'الكل') {
+                button.classList.add('active');
+            }
+            button.textContent = category;
+            button.dataset.category = category;
+            button.style.animationDelay = `${index * 0.05}s`;
+            button.classList.add('fade-in');
+            filterContainer.appendChild(button);
+        });
+        
+        // Function to render tools with stagger animation
+        function renderTools(filteredTools) {
+            toolsGrid.innerHTML = '';
+            filteredTools.forEach((tool, index) => {
+                const card = document.createElement('div');
+                card.className = 'card rounded-2xl overflow-hidden flex flex-col';
+                card.style.animationDelay = `${index * 0.05}s`;
+                
+                card.innerHTML = `
+                    <div class="p-6 border-b border-gray-800 flex-grow">
+                        <div class="flex items-center mb-4">
+                            <img src="${tool.logo}" alt="${tool.name} Logo" class="w-16 h-16 rounded-2xl shadow-sm object-contain transition-transform hover:scale-110" onerror="this.onerror=null;this.src='https://placehold.co/64x64/1a1a1a/a0a0a0?text=${tool.name.charAt(0)}';">
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">${tool.name}</h3>
+                        <p class="text-text-secondary text-sm mb-4">${tool.description}</p>
+                    </div>
+                    <div class="p-4 bg-gray-900">
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="tag px-3 py-1 rounded-full text-xs">${tool.category}</span>
+                            <span class="tag px-3 py-1 rounded-full text-xs">${tool.pricing}</span>
+                            <span class="tag px-3 py-1 rounded-full text-xs">عربي: ${tool.arabic_support}</span>
+                        </div>
+                        <div class="flex flex-col space-y-2">
+                            <a href="${tool.url}" target="_blank" rel="noopener noreferrer" class="btn-primary w-full text-center font-bold py-3 px-4 rounded-lg">
+                                زيارة الأداة
+                            </a>
+                        </div>
+                    </div>
+                `;
+                toolsGrid.appendChild(card);
+            });
+        }
+        
+        // Initial render
+        renderTools(aiToolsData);
+        
+        // Filter and Search logic
+        function filterAndSearch() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const activeCategory = document.querySelector('.filter-btn.active').dataset.category;
+            
+            // Update category intro text
+            if (activeCategory === 'الكل') {
+                categoryIntroEl.textContent = '';
+            } else {
+                categoryIntroEl.textContent = categoryIntros[activeCategory] || '';
+            }
+            
+            const filteredTools = aiToolsData.filter(tool => {
+                const matchesCategory = activeCategory === 'الكل' || tool.category === activeCategory;
+                const matchesSearch = tool.name.toLowerCase().includes(searchTerm) || tool.description.toLowerCase().includes(searchTerm);
+                return matchesCategory && matchesSearch;
+            });
+            
+            renderTools(filteredTools);
+        }
+        
+        searchInput.addEventListener('input', filterAndSearch);
+        
+        document.querySelectorAll('.filter-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                document.querySelector('.filter-btn.active').classList.remove('active');
+                button.classList.add('active');
+                filterAndSearch();
+            });
+        });
+        
+        // Add parallax effect on scroll
+        let ticking = false;
+        function updateParallax() {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelector('.animated-bg');
+            const speed = scrolled * 0.5;
+            parallax.style.transform = `translateY(${speed}px)`;
+            ticking = false;
+        }
+        
+        function requestTick() {
+            if (!ticking) {
+                window.requestAnimationFrame(updateParallax);
+                ticking = true;
+            }
+        }
+        
+        window.addEventListener('scroll', requestTick);
+        
+        // Add intersection observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        // Observe all cards
+        document.querySelectorAll('.card').forEach(card => {
+            observer.observe(card);
+        });
+    });
+    </script>
+</body>
+</html>
+<!-- partial -->
+  
+</body>
+</html>
