@@ -799,6 +799,24 @@
         const filterContainer = document.getElementById('filter-container');
         const categoryIntroEl = document.getElementById('category-intro');
         const categories = ['الكل', ...new Set(aiToolsData.map(tool => tool.category))];
+
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        function observeFadeInElements(elements) {
+            elements.forEach(element => observer.observe(element));
+        }
         
         // Create filter buttons
         categories.forEach((category, index) => {
@@ -820,6 +838,7 @@
             filteredTools.forEach((tool, index) => {
                 const card = document.createElement('div');
                 card.className = 'card rounded-2xl overflow-hidden flex flex-col';
+                card.classList.add('fade-in');
                 card.style.animationDelay = `${index * 0.05}s`;
                 
                 card.innerHTML = `
@@ -845,10 +864,13 @@
                 `;
                 toolsGrid.appendChild(card);
             });
+            observeFadeInElements(toolsGrid.querySelectorAll('.card.fade-in'));
         }
-        
+
         // Initial render
         renderTools(aiToolsData);
+        // Observe statically rendered fade-in elements
+        observeFadeInElements(document.querySelectorAll('.fade-in'));
         
         // Filter and Search logic
         function filterAndSearch() {
@@ -900,25 +922,6 @@
         
         window.addEventListener('scroll', requestTick);
         
-        // Add intersection observer for fade-in animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: "0px 0px -50px 0px"
-        };
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-        
-        // Observe all cards
-        document.querySelectorAll('.card').forEach(card => {
-            observer.observe(card);
-        });
     });
     </script>
 </body>
