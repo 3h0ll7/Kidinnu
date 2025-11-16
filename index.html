@@ -106,6 +106,20 @@
             position: relative;
             overflow: hidden;
         }
+
+        .card-header,
+        .card-footer {
+            background: var(--card-bg);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .card-header {
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .card-footer {
+            border-top: 1px solid var(--border-color);
+        }
         
         .card::before {
             content: '';
@@ -823,14 +837,14 @@
                 card.style.animationDelay = `${index * 0.05}s`;
                 
                 card.innerHTML = `
-                    <div class="p-6 border-b border-gray-800 flex-grow">
+                    <div class="card-header p-6 flex-grow">
                         <div class="flex items-center mb-4">
                             <img src="${tool.logo}" alt="${tool.name} Logo" class="w-16 h-16 rounded-2xl shadow-sm object-contain transition-transform hover:scale-110" onerror="this.onerror=null;this.src='https://placehold.co/64x64/1a1a1a/a0a0a0?text=${tool.name.charAt(0)}';">
                         </div>
                         <h3 class="text-xl font-bold mb-2">${tool.name}</h3>
                         <p class="text-text-secondary text-sm mb-4">${tool.description}</p>
                     </div>
-                    <div class="p-4 bg-gray-900">
+                    <div class="card-footer p-4">
                         <div class="flex flex-wrap gap-2 mb-4">
                             <span class="tag px-3 py-1 rounded-full text-xs">${tool.category}</span>
                             <span class="tag px-3 py-1 rounded-full text-xs">${tool.pricing}</span>
